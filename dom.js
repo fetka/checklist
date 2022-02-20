@@ -31,13 +31,15 @@ store_name.innerHTML += `${STORAGE_NAME}`;
       return builder;
     }
 
-    document.querySelector('app').insertAdjacentHTML(
+    document.querySelector('#all_cases').insertAdjacentHTML(
       'beforeend',
-      `<input class="w3-check" type="checkbox" id="${cp_id}" name="${cp_id}" 
-      value="${cb.value}" ${done}>
-          <label for="${cb.name}"><b><u> ${cb.text} </u></b></label><br> <ul>${items(
-        cb.items
-      )}</ul>`
+      `<div class="w3-panel w3-light-blue">
+        <input class="w3-check" type="checkbox" id="${cp_id}" name="${cp_id}" value="${cb.value}" ${done}>
+        <label for="${cb.name}">
+        <b><u> ${cb.text} </u></b></label>
+        <br> 
+        <ul>${items(cb.items)}</ul>
+      </div>`
     );
   });
 })();
@@ -64,3 +66,12 @@ resetBtn.addEventListener('click', () => {
   checkedList.length = 0;
   localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
 });
+
+function openCity(tabID) {
+  var i;
+  var x = document.getElementsByClassName("cases");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  document.getElementById(tabID).style.display = "block";  
+}

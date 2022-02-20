@@ -9,15 +9,38 @@
     <link rel="stylesheet" href="w3.css" />
     <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" /> -->
   </head>
-  <body class=" w3-sand w3-margin">
-    
+  <body class="w3-sand w3-margin">
+    <div class="w3-bar w3-black w3-panel" >
+      <button class="w3-bar-item w3-button" onclick="openCity('all_cases')">
+        All
+      </button>
+      <button class="w3-bar-item w3-button" onclick="openCity('failed_cases')" >
+        Failed
+      </button>
+      <button class="w3-bar-item w3-button" onclick="openCity('pending_cases')">
+        Pending
+      </button>
+    </div>
     <!-- <button id="save__button">Save to storage</button> -->
     <!-- <button id="clear__button">Clear storage</button> -->
-    <button class="w3-button w3-black w3-round-xxlarge" style="padding: 8px 20px;" id="reset__button" title="It clears storage and removes selections">Reset</button>
-    <br />
-    <br />
-    <app ></app>
-    <p id="store_name" class="w3-display-bottomleft w3-padding-large"> store name: </p>
+    
+    <div id="all_cases" class="w3-container cases">
+      <button
+      class="w3-button w3-black w3-round-xxlarge"
+      style="padding: 8px 20px; margin: 20px 0 0 20px"
+      id="reset__button"
+      title="It clears storage and removes selections"
+    >
+      Reset
+    </button>
+
+    </div>
+    <div id="failed_cases" class="w3-container cases" style="display:none"> failed</div>
+    <div id="pending_cases" class="w3-container cases" style="display:none"> pending</div>
+
+    <p id="store_name" class="w3-display-bottomleft w3-padding-large">
+      store name:
+    </p>
     <script src="properties.js"></script>
     <script src="dom.js"></script>
   </body>

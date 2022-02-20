@@ -1,28 +1,15 @@
 const checkedList = JSON.parse(localStorage.getItem(STORAGE_NAME)) || [];
-// console.log(checkedList);
-// console.log(localStorage.getItem(STORAGE_NAME));
-
-// const saveBtn = document.querySelector('#save__button');
-const clearBtn = document.querySelector('#clear__button');
 const resetBtn = document.querySelector('#reset__button');
 const store_name = document.querySelector('#store_name');
+const done_counter = document.querySelector('#done_counter');
 store_name.innerHTML += `${STORAGE_NAME}`;
 
-// saveBtn.addEventListener('click', () => {
-//   localStorage.setItem(STORAGE_NAME, JSON.stringify(checkedList));
-// });
-
-// clearBtn.addEventListener('click', () => {
-//   localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
-// });
-
+// build the 'All' tab inner html structure
 (function () {
-  let counter_for_id = 1;
-
+  let checkedCounter = 0;
   checkboxList.forEach((cb) => {
-    // const cp_id = cb.name + '_' + counter_for_id++;
     const done = checkedList.includes(cb.id) ? 'checked' : '';
-
+    done ? ++checkedCounter : '';
     document.querySelector('#all_cases').insertAdjacentHTML(
       'beforeend',
       `<div class="w3-panel w3-light-indigo">
@@ -34,13 +21,11 @@ store_name.innerHTML += `${STORAGE_NAME}`;
         <ul>${items(cb.items)}</ul>
       </div>`
     );
-    //  done ? refreshDone(cb) : refreshPending(cb);
   });
-
-  
+  done_counter.innerHTML = checkedCounter;
 })();
 
-function refreshPending() {
+function buildPendingTabContent() {
   const x = document.querySelector('#pending_cases');
   x.innerHTML = '';
   checkboxList.forEach((cb) => {
@@ -56,7 +41,7 @@ function refreshPending() {
   });
 }
 
-function refreshDone() {
+function buildDoneTabContent() {
   const x = document.querySelector('#done_cases');
   x.innerHTML = '';
   checkboxList.forEach((cb) => {
@@ -71,7 +56,7 @@ function refreshDone() {
     }
   });
 }
-
+// helper
 function items(items) {
   if (!items) return '';
   let builder = '';
@@ -80,16 +65,21 @@ function items(items) {
   });
   return builder;
 }
-const cbElements = document.querySelectorAll('.w3-check');
 
+// handles changes made by checking checkbox
+const cbElements = document.querySelectorAll('.w3-check');
 cbElements.forEach((el) => {
   el.addEventListener('change', (ev) => {
     if (ev.target.checked && !checkedList.includes(ev.target.id)) {
       checkedList.push(ev.target.id);
+      
     } else {
       const idx = checkedList.indexOf(ev.target.id);
-      if (idx !== -1) checkedList.splice(idx, 1);
+      if (idx !== -1) {
+        checkedList.splice(idx, 1);
+      }
     }
+    done_counter.innerHTML = checkedList.length;
     localStorage.setItem(STORAGE_NAME, JSON.stringify(checkedList));
     // console.log(checkedList);
   });
@@ -106,8 +96,8 @@ resetBtn.addEventListener('click', () => {
 function openTab(event, tabID) {
   var i, tabLinks;
   var x = document.getElementsByClassName('cases');
-  refreshDone();
-  refreshPending();
+  buildDoneTabContent();
+  buildPendingTabContent();
   for (i = 0; i < x.length; i++) {
     x[i].style.display = 'none';
   }

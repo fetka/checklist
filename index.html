@@ -12,13 +12,13 @@
   <body class="w3-sand w3-margin">
     <div class="w3-bar w3-black w3-panel" >
       <button class="w3-bar-item w3-button tablink w3-indigo" onclick="openTab(event,'all_cases')">
-        All
+        All <span id="all_counter" class="w3-badge w3-white">0</span>
       </button>
       <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'done_cases')" >
         Done <span id="done_counter" class="w3-badge w3-green">0</span>
       </button>
       <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'pending_cases')">
-        Pending
+        Pending <span id="pending_counter" class="w3-badge w3-orange">0</span>
       </button>
     </div>
     <!-- <button id="save__button">Save to storage</button> -->

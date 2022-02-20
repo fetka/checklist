@@ -1,15 +1,18 @@
 const checkedList = JSON.parse(localStorage.getItem(STORAGE_NAME)) || [];
 const resetBtn = document.querySelector('#reset__button');
 const store_name = document.querySelector('#store_name');
+const all_counter = document.querySelector('#all_counter');
 const done_counter = document.querySelector('#done_counter');
+const pending_counter = document.querySelector('#pending_counter');
+all_counter.innerHTML = checkboxList.length;
 store_name.innerHTML += `${STORAGE_NAME}`;
 
 // build the 'All' tab inner html structure
 (function () {
-  let checkedCounter = 0;
+  // let checkedCounter = 0;
   checkboxList.forEach((cb) => {
     const done = checkedList.includes(cb.id) ? 'checked' : '';
-    done ? ++checkedCounter : '';
+    // done ? ++checkedCounter : '';
     document.querySelector('#all_cases').insertAdjacentHTML(
       'beforeend',
       `<div class="w3-panel w3-light-indigo">
@@ -22,7 +25,8 @@ store_name.innerHTML += `${STORAGE_NAME}`;
       </div>`
     );
   });
-  done_counter.innerHTML = checkedCounter;
+  done_counter.innerHTML = checkedList.length;
+  pending_counter.innerHTML = checkboxList.length - checkedList.length;
 })();
 
 function buildPendingTabContent() {
@@ -80,6 +84,8 @@ cbElements.forEach((el) => {
       }
     }
     done_counter.innerHTML = checkedList.length;
+    pending_counter.innerHTML = checkboxList.length - checkedList.length;
+
     localStorage.setItem(STORAGE_NAME, JSON.stringify(checkedList));
     // console.log(checkedList);
   });
@@ -90,6 +96,8 @@ resetBtn.addEventListener('click', () => {
     el.checked = false;
   });
   checkedList.length = 0;
+  pending_counter.innerHTML = 0;
+  done_counter.innerHTML = 0;
   localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
 });
 

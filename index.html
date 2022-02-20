@@ -11,13 +11,13 @@
   </head>
   <body class="w3-sand w3-margin">
     <div class="w3-bar w3-black w3-panel" >
-      <button class="w3-bar-item w3-button" onclick="openCity('all_cases')">
+      <button class="w3-bar-item w3-button tablink w3-indigo" onclick="openTab(event,'all_cases')">
         All
       </button>
-      <button class="w3-bar-item w3-button" onclick="openCity('failed_cases')" >
-        Failed
+      <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'done_cases')" >
+        Done
       </button>
-      <button class="w3-bar-item w3-button" onclick="openCity('pending_cases')">
+      <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'pending_cases')">
         Pending
       </button>
     </div>
@@ -35,7 +35,7 @@
     </button>
 
     </div>
-    <div id="failed_cases" class="w3-container cases" style="display:none"> failed</div>
+    <div id="done_cases" class="w3-container cases" style="display:none"> done</div>
     <div id="pending_cases" class="w3-container cases" style="display:none"> pending</div>
 
     <p id="store_name" class="w3-display-bottomleft w3-padding-large">

@@ -18,32 +18,68 @@ store_name.innerHTML += `${STORAGE_NAME}`;
 
 (function () {
   let counter_for_id = 1;
-  checkboxList.forEach((cb) => {
-    const cp_id = cb.name + '_' + counter_for_id++;
-    const done = checkedList.includes(cp_id) ? 'checked' : '';
 
-    function items(items) {
-      if (!items) return '';
-      let builder = '';
-      items.forEach((item) => {
-        builder += `<li>${item}</li>`;
-      });
-      return builder;
-    }
+  checkboxList.forEach((cb) => {
+    // const cp_id = cb.name + '_' + counter_for_id++;
+    const done = checkedList.includes(cb.id) ? 'checked' : '';
 
     document.querySelector('#all_cases').insertAdjacentHTML(
       'beforeend',
-      `<div class="w3-panel w3-light-blue">
-        <input class="w3-check" type="checkbox" id="${cp_id}" name="${cp_id}" value="${cb.value}" ${done}>
+      `<div class="w3-panel w3-light-indigo">
+        <input class="w3-check" type="checkbox" id="${cb.id}" name="${cb.id}" 
+        value="${cb.value}" ${done}>
         <label for="${cb.name}">
         <b><u> ${cb.text} </u></b></label>
         <br> 
         <ul>${items(cb.items)}</ul>
       </div>`
     );
+    //  done ? refreshDone(cb) : refreshPending(cb);
   });
+
+  
 })();
 
+function refreshPending() {
+  const x = document.querySelector('#pending_cases');
+  x.innerHTML = '';
+  checkboxList.forEach((cb) => {
+    if (!checkedList.includes(cb.id)) {
+      x.insertAdjacentHTML(
+        'beforeend',
+        `<div class="w3-panel w3-light-indigo">
+        <p><b><u> ${cb.text} </u></b></p>
+        <ul>${items(cb.items)}</ul>
+        </div>`
+      );
+    }
+  });
+}
+
+function refreshDone() {
+  const x = document.querySelector('#done_cases');
+  x.innerHTML = '';
+  checkboxList.forEach((cb) => {
+    if (checkedList.includes(cb.id)) {
+      x.insertAdjacentHTML(
+        'beforeend',
+        `<div class="w3-panel w3-light-indigo">
+        <p><b><u> ${cb.text} </u></b></p>
+        <ul>${items(cb.items)}</ul>
+        </div>`
+      );
+    }
+  });
+}
+
+function items(items) {
+  if (!items) return '';
+  let builder = '';
+  items.forEach((item) => {
+    builder += `<li>${item}</li>`;
+  });
+  return builder;
+}
 const cbElements = document.querySelectorAll('.w3-check');
 
 cbElements.forEach((el) => {
@@ -67,11 +103,18 @@ resetBtn.addEventListener('click', () => {
   localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
 });
 
-function openCity(tabID) {
-  var i;
-  var x = document.getElementsByClassName("cases");
+function openTab(event, tabID) {
+  var i, tabLinks;
+  var x = document.getElementsByClassName('cases');
+  refreshDone();
+  refreshPending();
   for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
+    x[i].style.display = 'none';
   }
-  document.getElementById(tabID).style.display = "block";  
+  tabLinks = document.getElementsByClassName('tablink');
+  for (i = 0; i < x.length; i++) {
+    tabLinks[i].className = tabLinks[i].className.replace(' w3-indigo', '');
+  }
+  document.getElementById(tabID).style.display = 'block';
+  event.currentTarget.className += ' w3-indigo';
 }

@@ -76,7 +76,6 @@ cbElements.forEach((el) => {
   el.addEventListener('change', (ev) => {
     if (ev.target.checked && !checkedList.includes(ev.target.id)) {
       checkedList.push(ev.target.id);
-      
     } else {
       const idx = checkedList.indexOf(ev.target.id);
       if (idx !== -1) {
@@ -91,13 +90,56 @@ cbElements.forEach((el) => {
   });
 });
 
+// set visibility of badges in nav bar
+const badgeElements = document.querySelectorAll('.w3-badge');
+
+function setVisibilityOfBadges() {
+  badgeElements.forEach((el) => {
+    console.log(el.innerHTML);
+    if (parseInt(el.innerHTML) > 0) {
+      el.style.visibility = 'visible';
+    } else {
+      el.style.visibility = 'hidden';
+      // m.target.style.display = 'none'
+    }
+  });
+}
+
+const observer = new MutationObserver(function (mutationsList) {
+  mutationsList.forEach((m) => {
+    if (parseInt(m.target.innerHTML) > 0) {
+      m.target.style.visibility = 'visible';
+    } else {
+      m.target.style.visibility = 'hidden';
+      // m.target.style.display = 'none'
+    }
+  });
+});
+
+observer.observe(badgeElements[2], { subtree: true, childList: true });
+observer.observe(badgeElements[1], { subtree: true, childList: true });
+observer.observe(badgeElements[0], { subtree: true, childList: true });
+
+// badgeElements.forEach((el) => {
+//   el.addEventListener('change', (ev) => {
+//     console.log(el.innerHTML)
+//     if (parseInt(ev.target.innerHTML) > 0) {
+//       el.style.display = 'block';
+//     }
+//     else{
+//       el.style.display = 'none';
+
+//     }
+//   });
+// });
 resetBtn.addEventListener('click', () => {
   cbElements.forEach((el) => {
     el.checked = false;
   });
   checkedList.length = 0;
-  pending_counter.innerHTML = 0;
+  pending_counter.innerHTML = checkboxList.length;
   done_counter.innerHTML = 0;
+  setVisibilityOfBadges();
   localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
 });
 

@@ -4,10 +4,12 @@ const store_name = document.querySelector('#store_name');
 const all_counter = document.querySelector('#all_counter');
 const done_counter = document.querySelector('#done_counter');
 const pending_counter = document.querySelector('#pending_counter');
+const badgeElements = document.querySelectorAll('.w3-badge');
+
 all_counter.innerHTML = checkboxList.length;
 store_name.innerHTML += `${STORAGE_NAME}`;
 
-// build the 'All' tab inner html structure
+// builds up the 'All' tab inner html structure
 (function () {
   // let checkedCounter = 0;
   checkboxList.forEach((cb) => {
@@ -27,6 +29,7 @@ store_name.innerHTML += `${STORAGE_NAME}`;
   });
   done_counter.innerHTML = checkedList.length;
   pending_counter.innerHTML = checkboxList.length - checkedList.length;
+  setVisibilityOfBadges();
 })();
 
 function buildPendingTabContent() {
@@ -70,13 +73,12 @@ function items(items) {
   return builder;
 }
 
-// handles changes made by checking checkbox
+// handles changes triggered by checkbox
 const cbElements = document.querySelectorAll('.w3-check');
 cbElements.forEach((el) => {
   el.addEventListener('change', (ev) => {
     if (ev.target.checked && !checkedList.includes(ev.target.id)) {
       checkedList.push(ev.target.id);
-      
     } else {
       const idx = checkedList.indexOf(ev.target.id);
       if (idx !== -1) {
@@ -91,16 +93,48 @@ cbElements.forEach((el) => {
   });
 });
 
+// observes changes of badges' values and sets visibility in navbar
+
+function setVisibilityOfBadges() {
+  badgeElements.forEach((el) => {
+    // console.log(el.innerHTML);
+    if (parseInt(el.innerHTML) > 0) {
+      el.style.visibility = 'visible';
+    } else {
+      el.style.visibility = 'hidden';
+      // m.target.style.display = 'none'
+    }
+  });
+}
+
+const observer = new MutationObserver(function (mutationsList) {
+  mutationsList.forEach((m) => {
+    if (parseInt(m.target.innerHTML) > 0) {
+      m.target.style.visibility = 'visible';
+    } else {
+      m.target.style.visibility = 'hidden';
+      // m.target.style.display = 'none'
+    }
+  });
+});
+
+observer.observe(badgeElements[2], { subtree: true, childList: true });
+observer.observe(badgeElements[1], { subtree: true, childList: true });
+observer.observe(badgeElements[0], { subtree: true, childList: true });
+
+// resets state
 resetBtn.addEventListener('click', () => {
   cbElements.forEach((el) => {
     el.checked = false;
   });
   checkedList.length = 0;
-  pending_counter.innerHTML = 0;
+  pending_counter.innerHTML = checkboxList.length;
   done_counter.innerHTML = 0;
+  setVisibilityOfBadges();
   localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
 });
 
+// operates navigation
 function openTab(event, tabID) {
   var i, tabLinks;
   var x = document.getElementsByClassName('cases');

@@ -1,10 +1,11 @@
-const STORAGE_NAME = 'stored_progress_state_2';
+const DONE_STORAGE_NAME = 'stored_progress_state_done';
+const SELECTED_STORAGE_NAME = 'stored_progress_state_selected';
 const checkboxList = [
   {
     name: 'name',
     id: 'name_1',
     value: 'value',
-    text: 'text 1',
+    title: 'title 1',
     items: ['item 1', 'item 2'],
     done: false,
   },
@@ -12,25 +13,24 @@ const checkboxList = [
     name: 'name',
     id: 'name_2',
     value: 'value',
-    text: 'text 2',
+    title: 'title 2',
     items: ['item 1'],
     done: false,
   },
   {
     name: 'name',
     id: 'name_3',
-    id: 'name_3',
     value: 'value',
-    text: 'text 3',
+    title: 'title 3',
     items: ['item 1', 'item 2'],
     done: false,
   },
-  { name: 'name', id: 'name_4', value: 'value', text: 'text 4', done: false },
+  { name: 'name', id: 'name_4', value: 'value', title: 'title 4', done: false },
   {
     name: 'name',
     id: 'name_5',
     value: 'value',
-    text: 'text 5',
+    title: 'title 5',
     items: ['item 1', 'item 2'],
     done: false,
   },

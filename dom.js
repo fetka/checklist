@@ -164,8 +164,8 @@ resetBtn.addEventListener('click', () => {
   titles.forEach((title) => {
     title.innerHTML = title.innerHTML.replace('<mark>', '');
   });
-  localStorage.setItem(DONE_STORAGE_NAME, JSON.stringify([]));
-  localStorage.setItem(SELECTED_STORAGE_NAME, JSON.stringify([]));
+  localStorage.removeItem(DONE_STORAGE_NAME);
+  localStorage.removeItem(SELECTED_STORAGE_NAME);
 });
 
 // operates navigation

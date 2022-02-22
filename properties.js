@@ -1,5 +1,5 @@
-const DONE_STORAGE_NAME = 'stored_progress_state_done';
-const SELECTED_STORAGE_NAME = 'stored_progress_state_selected';
+const DONE_STORAGE_NAME = 'checklist-done-3';
+const SELECTED_STORAGE_NAME = 'checklist-selected-3';
 const checkboxList = [
   {
     name: 'name',

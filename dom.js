@@ -41,7 +41,7 @@ function setVisibilityOfBadges() {
     document.querySelector('#all_cases').insertAdjacentHTML(
       'beforeend',
       `<div class="w3-panel w3-light-indigo">
-        <input class="w3-check" type="checkbox" id="${cb.id}" name="${cb.id}" 
+        <input class="w3-check" type="checkbox" id="${cb.id}" name="${cb.name}" 
         value="${cb.value}" ${done}>
         <label for="${cb.name}" >
         <b><u class="title"> ${cb.title} </u></b></label>
@@ -67,13 +67,13 @@ titles.forEach((title) => {
   ) {
     title.innerHTML = '<mark>' + title.innerHTML + '</mark>';
   }
-  console.log(
-    title.parentElement.parentElement.parentElement.firstElementChild.id
-  );
+  // console.log(
+  //   title.parentElement.parentElement.parentElement.firstElementChild.id
+  // );
   title.addEventListener('click', (ev) => {
+    // console.log(ev.currentTarget);
     ev.stopPropagation();
     if (ev.currentTarget.innerHTML.includes('<mark>')) {
-      console.log(ev.currentTarget);
       ev.currentTarget.innerHTML = ev.currentTarget.innerHTML.replace(
         '<mark>',
         ''
@@ -93,6 +93,7 @@ titles.forEach((title) => {
       // console.log(
       //   ev.target.parentElement.parentElement.parentElement.firstElementChild.id
       // );
+      // console.log(selectedList)
     }
   });
 });
@@ -164,6 +165,8 @@ resetBtn.addEventListener('click', () => {
   titles.forEach((title) => {
     title.innerHTML = title.innerHTML.replace('<mark>', '');
   });
+  selectedList.length = 0;
+  doneList.length = 0;
   localStorage.removeItem(DONE_STORAGE_NAME);
   localStorage.removeItem(SELECTED_STORAGE_NAME);
 });

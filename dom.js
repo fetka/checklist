@@ -7,6 +7,7 @@ const all_counter = document.querySelector('#all_counter');
 const done_counter = document.querySelector('#done_counter');
 const pending_counter = document.querySelector('#pending_counter');
 const badgeElements = document.querySelectorAll('.w3-badge');
+const dropArea = document.querySelector('#drop_area');
 
 all_counter.innerHTML = checkboxList.length;
 store_name.innerHTML += `${DONE_STORAGE_NAME}`;
@@ -21,6 +22,7 @@ const observer = new MutationObserver(function (mutationsList) {
     }
   });
 });
+
 function setVisibilityOfBadges() {
   badgeElements.forEach((el) => {
     if (parseInt(el.innerHTML) > 0) {
@@ -171,16 +173,28 @@ resetBtn.addEventListener('click', () => {
   localStorage.removeItem(SELECTED_STORAGE_NAME);
 });
 
+dropArea.addEventListener('blur', (event) => {
+  event.preventDefault();
+  console.log(dropArea.value);
+});
+
+function readArea() {
+  console.log(dropArea.value);
+}
+
 // operates navigation
 function openTab(event, tabID) {
   var i, tabLinks;
   var x = document.getElementsByClassName('cases');
   buildDoneTabContent();
   buildPendingTabContent();
+
   for (i = 0; i < x.length; i++) {
     x[i].style.display = 'none';
   }
+
   tabLinks = document.getElementsByClassName('tablink');
+
   for (i = 0; i < x.length; i++) {
     tabLinks[i].className = tabLinks[i].className.replace(' w3-indigo', '');
   }

@@ -23,6 +23,9 @@
       <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'pending_cases')">
         Pending <span id="pending_counter" class="w3-badge w3-orange">0</span>
       </button>
+      <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'drop_zone')">
+        Drops <span id="pending_counter" class="w3-badge w3-orange">0</span>
+      </button>
     </div>
     <!-- <button id="save__button">Save to storage</button> -->
     <!-- <button id="clear__button">Clear storage</button> -->
@@ -40,6 +43,10 @@
     </div>
     <div id="done_cases" class="w3-container cases" style="display:none"> done</div>
     <div id="pending_cases" class="w3-container cases" style="display:none"> pending</div>
+    <div id="drop_zone" class="w3-container cases" style="display:none"> 
+    <textarea name="drop_area" id="drop_area" cols="30" rows="10"></textarea>
+    <button id="drop" onclick="readArea()">drop</button>
+    </div>
 
     <p  id="store_name" class="w3-display-bottomleft w3-padding-large">
       store name:
